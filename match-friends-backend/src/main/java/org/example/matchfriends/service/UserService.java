@@ -1,7 +1,6 @@
 package org.example.matchfriends.service;
 
-import org.springframework.stereotype.Service;
 
 public interface UserService {
-
+    public long  userRegister(String userName, String userAccount, String userPassword);
 }
