@@ -11,12 +11,6 @@
 - 队伍列表
 - 队伍推送
 
-```
-## 🛠 技术栈
-- **前端**: Vue 3, Pinia, Axios, Tailwind CSS
-- **后端**: Spring Boot 3, JPA, MySQL,
-```
-
 ## 技术栈
 
 - **前端**： Vue3, pinia, Axios, Tailwinds Css
