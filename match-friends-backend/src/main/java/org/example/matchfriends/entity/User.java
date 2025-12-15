@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @TableName("user")
 public class User {
+    private static final long serialVersionUID = 1L;
     /**
      * 主键ID（雪花ID，由 MyBatis-Plus 自动生成）
      */

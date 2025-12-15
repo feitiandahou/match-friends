@@ -33,6 +33,11 @@ const routes = [
         path: '/friends-list',
         name: 'friends-list',
         component: () => import('@/views/FriendsList.vue')
+    },
+    {
+        path: '/user/edit',
+        name: 'user-edit',
+        component: () => import('@/views/UserEdit.vue')
     }
 ]
 const router = createRouter({

@@ -3,7 +3,7 @@
         <van-form @submit="onSubmit">
             <van-cell-group inset>
                 <van-field
-                v-model="userName"
+                v-model="username"
                 name="用户名"
                 label="用户名"
                 placeholder="用户名"
@@ -17,7 +17,7 @@
                 :rules="[{ required: true, message: '请填写账号' }]"
                 />
                 <van-field
-                v-model="userPassword"
+                v-model="password"
                 type="password"
                 name="密码"
                 label="密码"
@@ -47,25 +47,29 @@ import { ref } from 'vue'
 import api from '../api'
 import router from '../router'
 import { useUserStore } from '../stores/user';
+import { showToast } from 'vant';
+
 const userStore = useUserStore()
 const userAccount = ref('')
-const userName = ref('')
-const userPassword = ref('')
+const username = ref('')
+const password = ref('')
 const confirmPassword = ref('')
-const onSubmit = () => {
-    if(userPassword.value !== confirmPassword.value){
+const onSubmit = async() => {
+    if(password.value !== confirmPassword.value){
         console.log("两次密码不一致");
         return
     }
-    api.post('/register', { userAccount: userAccount.value, userName: userName.value, userPassword: userPassword.value })
-    .then((registerData) => {
-        console.log(registerData);
-        console.log(registerData.data);
-        console.log(registerData.status);
-    })
-    
-    
-    
+    const res = await api.post('/register', { userAccount: userAccount.value, username: username.value, password: password.value })
+    console.log(res,'用户注册');
+    console.log(res.data,"data");
+    if(res.status === 200 && res.data.code === 0){
+        showToast("注册成功");
+        // 注册成功后，跳转到登录页面
+        router.push('/login');
+    }
+    else{
+        showToast("注册失败"+res.data.msg);
+    }
 }
 </script>
 

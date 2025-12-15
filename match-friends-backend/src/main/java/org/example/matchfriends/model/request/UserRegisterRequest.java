@@ -6,18 +6,19 @@ import java.io.Serializable;
 
 public class UserRegisterRequest implements Serializable {
     private static final long serialVersionUID = 3191241716373120793L;
-    private String userName;
+
+    private String username;
 
     private String userAccount;
 
-    private String userPassword;
+    private String password;
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUserAccount() {
@@ -28,14 +29,11 @@ public class UserRegisterRequest implements Serializable {
         this.userAccount = userAccount;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-
-
 }

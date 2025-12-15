@@ -3,11 +3,11 @@
         <van-form @submit="onSubmit">
             <van-cell-group inset>
                 <van-field
-                v-model="username"
-                name="用户名"
-                label="用户名"
-                placeholder="用户名"
-                :rules="[{ required: true, message: '请填写用户名' }]"
+                v-model="userAccount"
+                name="账号"
+                label="账号"
+                placeholder="账号"
+                :rules="[{ required: true, message: '请填写账号' }]"
                 />
                 <van-field
                 v-model="password"
@@ -32,16 +32,25 @@ import { ref } from 'vue'
 import { useUserStore } from '../stores/user';
 import router from '../router'
 import api from '../api'
+import { showToast } from 'vant';
+
 const userStore = useUserStore()
 
-const username = ref('')
+const userAccount = ref('')
 const password = ref('')
-const onSubmit = () => {
-    console.log("提交"+username.value+","+password.value);
-    api.post('/register', { username: username.value, password: password.value })
-    .then((data) => console.log('注册成功', data));
-    // 注册成功后，跳转到登录页面
-    router.push('/');
+const onSubmit = async () => {
+    const res = await api.post('/login', { userAccount: userAccount.value, password: password.value })
+    if(res.status === 200 && res.data.code === 0){
+        showToast("登录成功");
+        // 登录成功后，将用户信息存储到 Pinia 中
+        console.log(res.data.data,'res.data.data');
+        userStore.setUser(res.data.data)
+        // 登录成功后，跳转到首页
+        router.push('/');
+    }
+    else{
+        showToast("登录失败"+res.data.msg);
+    }
 }
 
 </script>
