@@ -31,7 +31,7 @@
 import { ref } from 'vue'
 import { useUserStore } from '../stores/user';
 import router from '../router'
-import api from '../api'
+import api from '../plugins/myAxios'
 import { showToast } from 'vant';
 
 const userStore = useUserStore()

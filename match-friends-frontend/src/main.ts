@@ -5,6 +5,9 @@ import { createPinia } from 'pinia'
 import 'vant/es/toast/style';
 
 const app =  createApp(App)
+
 app.use(router)
 app.use(createPinia())
+
+
 app.mount('#app')

@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import api from '../api'
+import api from '../plugins/myAxios'
 import router from '../router'
 import { useUserStore } from '../stores/user';
 import { showToast } from 'vant';

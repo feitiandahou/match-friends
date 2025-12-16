@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.eq("password", userPassword);
         User user = userMapper.selectOne(queryWrapper);
         if(user == null){
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         request.getSession().setAttribute(USER_LOGIN_STATE, user);
         return user;
@@ -116,6 +116,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public int updateUser(User user, User loginUser) {
+        user.setId(loginUser.getId());
         long userId = user.getId();
         if(userId <= 0) throw new BusinessException(ErrorCode.PARAMS_ERROR);
         boolean hasUpdate = Stream.of(
@@ -128,9 +129,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         ).anyMatch(StringUtils::isNotBlank) || user.getGender() != null ||
                 user.getAge()!= null || user.getStatus()!= null;
         if(!hasUpdate) throw  new BusinessException(ErrorCode.PARAMS_ERROR, "请提供至少一个需要更新的字段");
-        if(!isAdmin(loginUser) && userId != loginUser.getId()){
-            throw new BusinessException(ErrorCode.NO_AUTH);
-        }
+
+//        if(!isAdmin(loginUser) && userId != loginUser.getId()){
+//            throw new BusinessException(ErrorCode.NO_AUTH);
+//        }
         User oldUser = userMapper.selectById(userId);
         if(oldUser == null) throw new BusinessException(ErrorCode.NULL_ERROR);
         return userMapper.updateById(user);
